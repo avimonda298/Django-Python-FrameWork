@@ -1,0 +1,61 @@
+pip install django
+django-admin startproject helloapp
+#helloapp/settings.py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+Running this below command will create an app called howdy. 
+python manage.py startapp howdy
+File structure should now look something like Below.
+helloapp
+├── helloapp
+│        ├── __init__.py
+│        ├── settings.py
+│        ├── urls.py
+│        └── wsgi.py
+├── howdy
+│        ├── __init__.py
+│        ├── admin.py
+│        ├── apps.py
+│        ├── migrations
+│        ├── models.py
+│        ├── tests.py
+│        └── views.py
+└── manage.py
+
+python manage.py runserver
+
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+
+June 04, 2016 - 07:42:08
+Django version 1.9.6, using settings 'helloapp.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+# howdy/views.py
+from django.shortcuts import render
+from django.views.generic import TemplateView
+
+# Create your views here.
+class HomePageView(TemplateView):
+    def get(self, request, **kwargs):
+        return render(request, 'index.html', context=None)
+        
+        # helloapp/urls.py
+from django.conf.urls import url, include
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^', include('howdy.urls')),
+]
